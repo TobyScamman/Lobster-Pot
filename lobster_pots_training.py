@@ -1,25 +1,28 @@
 import random, math
+learning_rate = 0.25
+weights = [[random.random(), random.random(), random.random(), random.random(),],
+           [random.random(), random.random(), random.random(), random.random(),],
+           [random.random(), random.random(), random.random(), random.random(),],]
 
-def buy_pots(buy_bank, buy_pot_total, buy_price):
-    try:
-        pots_purchased = int(input(f'You have £{buy_bank}. How many pots would you like to buy? '))
-        while pots_purchased > buy_bank / buy_price: 
-            pots_purchased = int(input(f'Invalid. How many pots would you like to buy? '))
-        buy_bank -= pots_purchased * buy_price
-        buy_pot_total += pots_purchased
-        buy_price = 2
-        return [buy_bank, buy_pot_total, buy_price]
-    except:
-        return buy_pots(buy_bank, buy_pot_total, buy_price)
+def activate(actiate_neurone):
+    return 1/(1 + (math.e ** -activate_neurone))
 
-def distribute_pots(distribute_pot_total):
-    try:
-        distribute = list(map(int, input(f'How would you like to distribute your {distribute_pot_total} pots, on shore, in the bay or at sea? ').split())) #converts 0 3 7 into a list of integers
-        while sum(distribute) != distribute_pot_total or len(distribute) != 3:
-            distribute = list(map(int, input('Invalid. How would you like to distribute your pots, on shore, in the bay or at sea? ').split())) #converts 0 3 7 into a list of integers
-        return distribute
-    except:
-        return distribute_pots(distribute_pot_total)
+def sum_%buy_pots
+    
+def buy_pots(buy_bank, buy_pot_total, buy_price, buy_pot_percentage):
+    pots_purchased = round(buy_pot_percentage * (buy_bank // buy_price))     
+    buy_bank -= pots_purchased * buy_price
+    buy_pot_total += pots_purchased
+    buy_price = 2
+    return buy_bank, buy_pot_total, buy_price
+
+def distribute_pots(distribute_pot_total, %distribute_pots_shore, %distribute_pots_bay):
+    distribute = []
+    distribute.append(distribute_pot_total * %distribute_pots_shore)  
+    if %distribute_pots_bay + %distribute_pots_shore > 1:
+        %distribute_pots_bay = 1 - %distribute_pots_shore
+    distribute.extend([distribute_pot_total * %distribute_pots_bay, (1 - %distribute_pots_shore - %distribute_pots_bay) * distribute_pots_total])
+    return distribute, %distribute_pots_bay
 
 def roll_dice():
     dice = random.randint(0,2)
@@ -29,6 +32,7 @@ def roll_dice():
     return dice
 
 def outcome(outcome_bank, outcome_distribution, outcome_price, outcome_weather):
+    outcome_difference = sum(outcome_distribution)
     match outcome_weather:
         case 3: #pot raid
             outcome_distribution[0] == 0
@@ -50,18 +54,18 @@ def outcome(outcome_bank, outcome_distribution, outcome_price, outcome_weather):
             outcome_distribution[1], outcome_distribution[2] = [0,0]
             return [outcome_bank, outcome_distribution, outcome_price]
     if outcome_weather == 0:
-        return [outcome_bank + outcome_distribution[1] * 1 + outcome_distribution[2] * 3, outcome_distribution, outcome_price]
+        return outcome_bank + outcome_distribution[1] * 1 + outcome_distribution[2] * 3, outcome_distribution, outcome_price, outcome_difference - sum(outcome_distribution)
     elif outcome_weather == 1:
         outcome_distribution[2] = 0
-        return [outcome_bank + outcome_distribution[1] * 2, outcome_distribution, outcome_price]
+        return outcome_bank + outcome_distribution[1] * 2, outcome_distribution, outcome_price
 
 bank = 20
 pots = 0
 price = 2
 for i in range(0,10):
-    bank, pots, price = buy_pots(bank, pots, price)
-    distribution = distribute_pots(pots)
+    bank, pots, price = buy_pots(bank, pots, price, %buy_pots)
+    distribution, %bay_pots = distribute_pots(pots, %shore_pots, %bay_pots)
     weather = roll_dice()
-    bank, distribution, price = outcome(bank, distribution, price, weather)
+    bank, distribution, price, pot_difference = outcome(bank, distribution, price, weather)
     pots = sum(distribution)
-print(f'You finished with {pots} pots, so your total is £{bank + pots * 2}')
+
