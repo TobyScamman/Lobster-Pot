@@ -58,7 +58,7 @@ def outcome(outcome_bank, outcome_distribution, outcome_price, outcome_weather):
 bank = 20
 pots = 0
 price = 2
-for i in range(0,9):
+for i in range(0,10):
     bank, pots, price = buy_pots(bank, pots, price)
     distribution = distribute_pots(pots)
     weather = roll_dice()
