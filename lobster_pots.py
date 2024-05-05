@@ -29,25 +29,26 @@ def roll_dice():
     return dice
 
 def outcome(outcome_bank, outcome_distribution, outcome_price, outcome_weather):
-    if outcome_weather == 3: #pot raid
-        outcome_distribution[0] == 0
-        outcome_weather = 0
-    elif outcome_weather == 4: #taxation
-        outcome_bank = outcome_bank + (outcome_bank - 100) // 2 if outcome_bank > 100 else 0
-        outcome_weather = 0
-    elif outcome_weather == 5: #bank raid
-        outcome_bank = 0
-        outcome_weather = 0
-    elif outcome_weather == 6: #price hike
-        outcome_price = 4
-        outcome_weather = 0
-    elif outcome_weather == 7: #gale
-        outcome_distribution[1] = math.ceil(outcome_distribution[1] / 2)
-        outcome_distribution[2] = 0
-        outcome_weather = 1
-    elif outcome_weather == 8: #severe storm
-        outcome_distribution[1], outcome_distribution[2] = [0,0]
-        return [outcome_bank, outcome_distribution, outcome_price]
+    match outcome_weather:
+        case 3: #pot raid
+            outcome_distribution[0] == 0
+            outcome_weather = 0
+        case 4: #taxation
+            outcome_bank = outcome_bank + (outcome_bank - 100) // 2 if outcome_bank > 100 else 0
+            outcome_weather = 0
+        case 5: #bank raid
+            outcome_bank = 0
+            outcome_weather = 0
+        case 6: #price hike
+            outcome_price = 4
+            outcome_weather = 0
+        case 7: #gale
+            outcome_distribution[1] = math.ceil(outcome_distribution[1] / 2)
+            outcome_distribution[2] = 0
+            outcome_weather = 1
+        case 8: #severe storm
+            outcome_distribution[1], outcome_distribution[2] = [0,0]
+            return [outcome_bank, outcome_distribution, outcome_price]
     if outcome_weather == 0:
         return [outcome_bank + outcome_distribution[1] * 1 + outcome_distribution[2] * 3, outcome_distribution, outcome_price]
     elif outcome_weather == 1:
