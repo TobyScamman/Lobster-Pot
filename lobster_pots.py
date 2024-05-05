@@ -24,8 +24,8 @@ def distribute_pots(distribute_pot_total):
 def roll_dice():
     dice = random.randint(0,2)
     if dice == 2:
-        dice = random.randint(3,8)
-    print(['Calm', 'Stormy', '', 'Pot Raid', 'Taxation', 'Bank Raid', 'Price Hike', 'Gale', 'Severe Storm'][dice])
+        dice = random.randint(2,7)
+    print(['Calm', 'Stormy', 'Pot Raid', 'Taxation', 'Bank Raid', 'Price Hike', 'Gale', 'Severe Storm'][dice])
     return dice
 
 def outcome(outcome_bank, outcome_distribution, outcome_price, outcome_weather):
